@@ -264,6 +264,146 @@ console.log(inorderTraversalIterative(root)); // Output: [4, 2, 5, 1, 6, 3, 7]
 | **Stack Usage**         | Implicit (call stack)       | Explicit (custom stack)    |
 | **Reuse**              | Requires fresh state setup  | Easy to reuse for multiple inputs |
 
+
+
+---
+
+# Binary Tree Postorder Traversal
+
+This repository contains a **recursive implementation** of the **postorder traversal** algorithm for binary trees. Postorder traversal is a depth-first search where nodes are visited in the order: **left subtree → right subtree → root**.
+
+---
+
+## Problem Description
+
+### Postorder Traversal
+For a binary tree, the **postorder traversal** visits nodes in the following sequence:
+1. Traverse the **left subtree**.
+2. Traverse the **right subtree**.
+3. Visit the **current node**.
+
+#### Example:
+Given the binary tree:
+
+```
+        1
+       / \
+      2   3
+     / \ / \
+    4  5 6  7
+```
+
+The postorder traversal is: `[4, 5, 2, 6, 7, 3, 1]`.
+
+---
+
+## Implementation
+
+### TreeNode Definition
+
+```javascript
+function TreeNode(val, left, right) {
+    this.val = (val === undefined ? 0 : val);
+    this.left = (left === undefined ? null : left);
+    this.right = (right === undefined ? null : right);
+}
+```
+
+The `TreeNode` class defines the structure of each node in the binary tree:
+- `val`: The value of the node.
+- `left`: Reference to the left child node.
+- `right`: Reference to the right child node.
+
+---
+
+### Recursive Implementation
+
+```javascript
+var postorderTraversal = function(root) {
+    const result = [];
+    
+    const traverseNode = (node) => {
+        if (!node) return; // Base case: stop at null nodes
+        traverseNode(node.left); // Traverse left subtree
+        traverseNode(node.right); // Traverse right subtree
+        result.push(node.val); // Visit current node
+    };
+    
+    traverseNode(root);
+    
+    return result;
+};
+```
+
+#### **Explanation**:
+1. A helper function `traverseNode` is defined to handle the recursive traversal.
+2. If the current node is `null`, recursion stops (base case).
+3. The function processes:
+   - The left subtree (recursive call).
+   - The right subtree (recursive call).
+   - The current node (adds its value to the `result` array).
+4. The `result` array is returned after completing the traversal.
+
+---
+
+## Time and Space Complexity
+
+| Property              | Complexity                  |
+|-----------------------|-----------------------------|
+| **Time Complexity**   | \( O(n) \)                  |
+| **Space Complexity**  | \( O(h) \)                  |
+
+### **Time Complexity: \( O(n) \)**
+- Each node in the tree is visited exactly once.
+- For a tree with \( n \) nodes, the total time is proportional to \( n \).
+
+### **Space Complexity: \( O(h) \)**
+- The space used by the recursion stack depends on the height \( h \) of the tree.
+  - In the worst case (a skewed tree), \( h = n \), so space complexity is \( O(n) \).
+  - In the best case (a balanced tree), \( h = \log n \), so space complexity is \( O(\log n) \).
+
+---
+
+## Example Usage
+
+### Test Case
+
+```javascript
+const root = {
+    val: 1,
+    left: {
+        val: 2,
+        left: { val: 4 },
+        right: { val: 5 }
+    },
+    right: {
+        val: 3,
+        left: { val: 6 },
+        right: { val: 7 }
+    }
+};
+
+console.log(postorderTraversal(root)); // Output: [4, 5, 2, 6, 7, 3, 1]
+```
+
+---
+
+## Key Characteristics of Postorder Traversal
+
+| Feature                | Postorder Traversal         |
+|------------------------|-----------------------------|
+| **Order of Visits**    | Left → Right → Root         |
+| **Common Use Cases**   | Deleting a tree, evaluating expressions in an expression tree |
+
+---
+
+## How to Run
+
+1. Copy the code into a JavaScript environment (e.g., a browser console or Node.js).
+2. Define the binary tree structure as shown in the example.
+3. Call the `postorderTraversal` function with the tree's root node.
+4. View the postorder traversal output.
+
 ---
 
 ## License
@@ -271,4 +411,4 @@ console.log(inorderTraversalIterative(root)); // Output: [4, 2, 5, 1, 6, 3, 7]
 This code is distributed under the MIT License.
 ```
 
-This `README.md` provides a detailed explanation of the problem, the recursive and iterative solutions, and their time and space complexities, ensuring clarity and depth.
+This `README.md` file provides a detailed explanation of the postorder traversal problem, its implementation, and complexity analysis, along with usage instructions.
